@@ -9,13 +9,12 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 //In order to use service for prePersist and preUpdate
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use Knp\Menu\ItemInterface as MenuItemInterface;
 
 class NewsAdmin extends Admin {
 
   protected $container;
-  
+
   public function __construct($code, $class, $baseControllerName, ContainerInterface $container) {
     parent::__construct($code, $class, $baseControllerName);
     $this->container = $container;
@@ -30,8 +29,8 @@ class NewsAdmin extends Admin {
   protected $datagridValues = array(
       '_sort_order' => 'ASC',
       '_sort_by' => 'title'
-  );  
-  
+  );
+
   /**
    * Create and Edit
    * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
@@ -40,30 +39,28 @@ class NewsAdmin extends Admin {
    */
   protected function configureFormFields(FormMapper $formMapper) {
     $formMapper
-              ->add('title')
-              ->add('published', null, array('required' => false))
-              ->add('content', 'textarea', array(
-                    'attr' => array(
-                        'class' => 'tinymce span8',
-                        'data-theme' => 'simple',  // simple, advanced, bbcode,
-                        'rows' => 20
+            ->add('title')
+            ->add('published', null, array('required' => false))
+            ->add('content', 'textarea', array(
+                'attr' => array(
+                    'class' => 'tinymce span8',
+                    'data-theme' => 'simple', // simple, advanced, bbcode,
+                    'rows' => 20
                     )))
-            
             ->with('Traducciones')
-              ->add('translations', 'a2lix_translations', array(
-                  'required' => false,                     // [optional] Overrides default_required if need
-                  'fields' => array(                      // [optional] Manual configuration of fields to display and options. If not specified, all translatable fields will be display, and options will be auto-detected
-                      'title' => array(
-                          'label' => 'Titulo',              // [optional] Custom label. Ucfirst, otherwise
-                      ),
-                      'content' => array(
-                          'label' => 'Descripcion',
-                          'attr' => array('style' => 'width:600px; height: 400px', 'class' => 'tinymce', 'data-theme' => 'medium', 'rows' => 20)
-                      )
-                  )
-              ))
+            ->add('translations', 'a2lix_translations', array(
+                'required' => false, // [optional] Overrides default_required if need
+                'fields' => array(// [optional] Manual configuration of fields to display and options. If not specified, all translatable fields will be display, and options will be auto-detected
+                    'title' => array(
+                        'label' => 'Titulo', // [optional] Custom label. Ucfirst, otherwise
+                    ),
+                    'content' => array(
+                        'label' => 'Descripcion',
+                        'attr' => array('style' => 'width:600px; height: 400px', 'class' => 'tinymce', 'data-theme' => 'medium', 'rows' => 20)
+                    )
+                )
+            ))
             ->end()
-            
             ->setHelps(array(
                 'content' => 'Write a news, dude.',
             ))
@@ -80,7 +77,7 @@ class NewsAdmin extends Admin {
   protected function configureListFields(ListMapper $listMapper) {
     $listMapper
             ->addIdentifier('id')
-            ->addIdentifier('title')            
+            ->addIdentifier('title')
             ->add('published', null, array('editable' => true))
             //->add('author', null, array('label' => 'Author'))
             ->add('created', null, array('label' => 'Created on'))
@@ -102,26 +99,23 @@ class NewsAdmin extends Admin {
             ->add('created')
     ;
   }
-  
-    protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
-    {
-        if (!$childAdmin && !in_array($action, array('edit'))) {
-            return;
-        }
 
-        $admin = $this->isChild() ? $this->getParent() : $this;
+  protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null) {
+    if (!$childAdmin && !in_array($action, array('edit'))) {
+      return;
+    }
 
-        $id = $admin->getRequest()->get('id');
+    $admin = $this->isChild() ? $this->getParent() : $this;
 
-        $menu->addChild(
-            $this->trans('sidemenu.link_view_post'),
-            array('uri' => $admin->generateUrl('edit', array('id' => $id)))
-        );
+    $id = $admin->getRequest()->get('id');
 
-        $menu->addChild(
-            $this->trans('sidemenu.link_view_comments'),
-            array('uri' => $admin->generateUrl('edit', array('id' => $id)))
-        );
-    }  
+    $menu->addChild(
+            $this->trans('sidemenu.link_view_post'), array('uri' => $admin->generateUrl('edit', array('id' => $id)))
+    );
+
+    $menu->addChild(
+            $this->trans('sidemenu.link_view_comments'), array('uri' => $admin->generateUrl('edit', array('id' => $id)))
+    );
+  }
 
 }
