@@ -2,7 +2,6 @@
 
 namespace Success\NewsBundle\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Success\NewsBundle\Model\NewsInterface;
@@ -55,55 +54,6 @@ abstract class News implements NewsInterface {
    * @Gedmo\Timestampable(on="update")
    */
   protected $updated;
-  
-  /**
-   * @ORM\OneToMany(
-   *   targetEntity="\Success\NewsBundle\Entity\NewsTranslation",
-   *   mappedBy="object",
-   *   cascade={"persist", "remove"}
-   * )
-   */
-  protected $translations;
-
-  public function getTranslations() {
-    return $this->translations;
-  }
-
-  /**
-   * Set translations
-   *
-   * @param ArrayCollection $translations
-   * @return News
-   */
-  public function setTranslations($translations) {
-    foreach ($translations as $translation) {
-      $translation->setObject($this);
-    }
-
-    $this->translations = $translations;
-    return $this;
-  }
-
-  /**
-   * Add translations
-   *
-   * @param Success\NewsBundle\Entity\NewsTranslation $translations
-   * @return News
-   */
-  public function addTranslation(\Success\NewsBundle\Entity\NewsTranslation $translations) {
-    $this->translations[] = $translations;
-
-    return $this;
-  }
-
-  /**
-   * Remove translations
-   *
-   * @param Success\NewsBundle\Entity\NewsTranslation $translations
-   */
-  public function removeTranslation(\Success\NewsBundle\Entity\NewsTranslation $translations) {
-    $this->translations->removeElement($translations);
-  }  
 
   public function __toString() {
     return (string) $this->title;
@@ -116,13 +66,6 @@ abstract class News implements NewsInterface {
    */
   public function getId() {
     return $this->id;
-  }
-
-  /**
-   * Constructor
-   */
-  public function __construct() {
-    $this->translations = new ArrayCollection();
   }
 
   /**

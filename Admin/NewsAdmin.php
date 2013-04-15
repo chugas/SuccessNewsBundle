@@ -41,9 +41,10 @@ class NewsAdmin extends Admin {
   protected function configureFormFields(FormMapper $formMapper) {
     $formMapper
               ->add('title')
+              ->add('published', null, array('required' => false))
               ->add('content', 'textarea', array(
                     'attr' => array(
-                        'class' => 'tinymce span10',
+                        'class' => 'tinymce span8',
                         'data-theme' => 'simple',  // simple, advanced, bbcode,
                         'rows' => 20
                     )))
@@ -57,19 +58,14 @@ class NewsAdmin extends Admin {
                       ),
                       'content' => array(
                           'label' => 'Descripcion',
-                          'attr' => array('style' => 'width:800px; height: 400px', 'class' => 'tinymce', 'data-theme' => 'medium', 'rows' => 20)
+                          'attr' => array('style' => 'width:600px; height: 400px', 'class' => 'tinymce', 'data-theme' => 'medium', 'rows' => 20)
                       )
                   )
               ))
             ->end()
             
-            ->with('Admins only :')
-              ->add('published', null, array('required' => false))
-            ->end()
-            
             ->setHelps(array(
                 'content' => 'Write a news, dude.',
-                'similarNews' => 'Shift+clic for multiple selection'
             ))
             ->end()
     ;
@@ -87,7 +83,7 @@ class NewsAdmin extends Admin {
             ->addIdentifier('title')            
             ->add('published', null, array('editable' => true))
             //->add('author', null, array('label' => 'Author'))
-            ->add('creationDate', null, array('label' => 'Created on'))
+            ->add('created', null, array('label' => 'Created on'))
     ;
   }
 
@@ -103,7 +99,7 @@ class NewsAdmin extends Admin {
             ->add('published')
             ->add('title')
             //->add('author')
-            ->add('creationDate')
+            ->add('created')
     ;
   }
   

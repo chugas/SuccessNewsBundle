@@ -4,7 +4,7 @@ Crear una entidad News que extienda Entity\News configurar Repository
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\TranslationEntity(class="Success\NewsBundle\Model\NewsTranslation")
 Crear clase Repository que extienda a Repository\BaseNewsRepository
-
+Crear clase Admin y extender la otra Admin
 
   /**
    * @ORM\OneToMany(

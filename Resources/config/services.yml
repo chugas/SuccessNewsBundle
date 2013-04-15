@@ -1,7 +1,14 @@
 parameters:
-#    news.example.class: Success\NewsBundle\Example
-
+    success.news.class: %success_news.model%
+    success.news.admin.class: %success_news.admin%
+          
 services:
-#    news.example:
-#        class: %news.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    success.sonata.admin.noticias:
+        class: %success.news.admin.class%
+        tags:
+          - { name: sonata.admin, manager_type: orm, group: 'Noticias', label: Noticias }
+        arguments:
+            - null
+            - %success.news.class%
+            - SuccessNewsBundle:News
+            - @service_container
