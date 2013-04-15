@@ -1,0 +1,56 @@
+Crear una entidad News que extienda Entity\News configurar Repository
+ * @ORM\Table(name="success_news")
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
+ * @Gedmo\TranslationEntity(class="Success\NewsBundle\Model\NewsTranslation")
+Crear clase Repository que extienda a Repository\BaseNewsRepository
+
+
+  /**
+   * @ORM\OneToMany(
+   *   targetEntity="NewsTranslation",
+   *   mappedBy="object",
+   *   cascade={"persist", "remove"}
+   * )
+   */
+  protected $translations;
+
+  public function getTranslations() {
+    return $this->translations;
+  }
+
+  /**
+   * Set translations
+   *
+   * @param ArrayCollection $translations
+   * @return News
+   */
+  public function setTranslations($translations) {
+    foreach ($translations as $translation) {
+      $translation->setObject($this);
+    }
+
+    $this->translations = $translations;
+    return $this;
+  }
+
+  /**
+   * Add translations
+   *
+   * @param Success\NewsBundle\Entity\NewsTranslation $translations
+   * @return News
+   */
+  public function addTranslation(\Success\NewsBundle\Entity\NewsTranslation $translations) {
+    $this->translations[] = $translations;
+
+    return $this;
+  }
+
+  /**
+   * Remove translations
+   *
+   * @param Success\NewsBundle\Entity\NewsTranslation $translations
+   */
+  public function removeTranslation(\Success\NewsBundle\Entity\NewsTranslation $translations) {
+    $this->translations->removeElement($translations);
+  }
