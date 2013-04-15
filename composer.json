@@ -1,0 +1,20 @@
+{
+    "name": "success/news-bundle",
+    "description": "A Bundle for news management",
+    "keywords": ["news", "bundle"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "homepage": "https://github.com/chugas/SuccessNewsBundle",
+    "authors": [
+        {
+            "name": "Gaston Caldeiro"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+    },
+    "autoload": {
+        "psr-0": { "Success\\NewsBundle": "" }
+    },
+    "target-dir": "Success/NewsBundle"
+}
