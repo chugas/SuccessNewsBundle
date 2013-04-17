@@ -31,6 +31,10 @@ class Configuration implements ConfigurationInterface
                   ->isRequired()
                   ->cannotBeEmpty()
               ->end()
+              ->scalarNode('controller')
+                  ->isRequired()
+                  ->cannotBeEmpty()
+              ->end()
             ->end()
         ;
 

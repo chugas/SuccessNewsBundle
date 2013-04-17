@@ -7,6 +7,20 @@ Crear clase Repository que extienda a Repository\BaseNewsRepository
 Crear clase Admin y extender la otra Admin
 
   /**
+   *
+   * @Gedmo\Translatable
+   * @ORM\Column(name="title", type="string", length=100, nullable=false)
+   */
+  protected $title;
+  
+  /**
+   *
+   * @Gedmo\Translatable
+   * @ORM\Column(name="content", type="text", nullable=false)
+   */
+  protected $content;
+
+  /**
    * @ORM\OneToMany(
    *   targetEntity="NewsTranslation",
    *   mappedBy="object",
@@ -54,3 +68,41 @@ Crear clase Admin y extender la otra Admin
   public function removeTranslation(\Success\NewsBundle\Entity\NewsTranslation $translations) {
     $this->translations->removeElement($translations);
   }
+
+
+EN ADMIN
+
+->with('Traducciones')
+->add('translations', 'a2lix_translations', array(
+    'required' => false, // [optional] Overrides default_required if need
+    'fields' => array(// [optional] Manual configuration of fields to display and options. If not specified, all translatable fields will be display, and options will be auto-detected
+        'title' => array(
+            'label' => 'Titulo', // [optional] Custom label. Ucfirst, otherwise
+        ),
+        'content' => array(
+            'label' => 'Descripcion',
+            'attr' => array('style' => 'width:600px; height: 400px', 'class' => 'tinymce', 'data-theme' => 'medium', 'rows' => 20)
+        )
+    )
+))
+->end()
+->setHelps(array(
+    'content' => 'Write a news, dude.',
+))
+
+->with('Imagenes')
+  ->add('newsHasMedias', 'sonata_type_collection', array(
+          'cascade_validation' => true,
+          'required' => false,
+          'by_reference' => false,
+          'label' => 'Medias'
+      ), array(
+          'edit' => 'inline',
+          'inline' => 'table',
+          'sortable'  => 'position',
+          'link_parameters' => array('context' => 'default'),
+          'allow_delete' => true
+      ))
+->end()
+
+EXTENDER CONTROLADOR

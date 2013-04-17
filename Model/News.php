@@ -23,15 +23,20 @@ abstract class News implements NewsInterface {
   /**
    * @var string $title
    *
-   * @Gedmo\Translatable
    * @ORM\Column(name="title", type="string", length=100, nullable=false)
    */
   protected $title;
 
   /**
+   * @var string $abstract
+   *
+   * @ORM\Column(name="abstract", type="text", nullable=true)
+   */
+  protected $abstract;  
+  
+  /**
    * @var string $content
    *
-   * @Gedmo\Translatable
    * @ORM\Column(name="content", type="text", nullable=false)
    */
   protected $content;
@@ -109,6 +114,27 @@ abstract class News implements NewsInterface {
   public function getContent() {
     return $this->content;
   }
+  
+  /**
+   * Set abstract
+   *
+   * @param string $abstract
+   * @return News
+   */
+  public function setAbstract($abstract) {
+    $this->abstract = $abstract;
+
+    return $this;
+  }
+
+  /**
+   * Get abstract
+   *
+   * @return string 
+   */
+  public function getAbstract() {
+    return $this->abstract;
+  }  
 
   /**
    * Set published

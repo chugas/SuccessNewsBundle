@@ -27,8 +27,8 @@ class NewsAdmin extends Admin {
 
   // setup the default sort column and order
   protected $datagridValues = array(
-      '_sort_order' => 'ASC',
-      '_sort_by' => 'title'
+      '_sort_order' => 'DESC',
+      '_sort_by' => 'created'
   );
 
   /**
@@ -47,23 +47,6 @@ class NewsAdmin extends Admin {
                     'data-theme' => 'simple', // simple, advanced, bbcode,
                     'rows' => 20
                     )))
-            ->with('Traducciones')
-            ->add('translations', 'a2lix_translations', array(
-                'required' => false, // [optional] Overrides default_required if need
-                'fields' => array(// [optional] Manual configuration of fields to display and options. If not specified, all translatable fields will be display, and options will be auto-detected
-                    'title' => array(
-                        'label' => 'Titulo', // [optional] Custom label. Ucfirst, otherwise
-                    ),
-                    'content' => array(
-                        'label' => 'Descripcion',
-                        'attr' => array('style' => 'width:600px; height: 400px', 'class' => 'tinymce', 'data-theme' => 'medium', 'rows' => 20)
-                    )
-                )
-            ))
-            ->end()
-            ->setHelps(array(
-                'content' => 'Write a news, dude.',
-            ))
             ->end()
     ;
   }

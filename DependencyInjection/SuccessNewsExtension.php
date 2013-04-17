@@ -24,6 +24,7 @@ class SuccessNewsExtension extends Extension
 
         $container->setParameter('success_news.model', $config['model']);
         $container->setParameter('success_news.admin', $config['admin']);        
+        $container->setParameter('success_news.controller', $config['controller']);
         
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
