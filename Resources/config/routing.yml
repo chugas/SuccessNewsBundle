@@ -1,1 +1,20 @@
+#success_noticias_comment_list:
+#    pattern:   /noticias/{id}/comment/list
+#    defaults:  { _controller: NewsBundle:BaseNews:comments }
+
+#ANY      /admin/sonata/news/post/{id}/comment/list
+#admin_sonata_news_post_comment_create                    
+#ANY      /admin/sonata/news/post/{id}/comment/create
+#admin_sonata_news_post_comment_batch                     
+#ANY      /admin/sonata/news/post/{id}/comment/batch
+#admin_sonata_news_post_comment_edit                      
+#ANY      /admin/sonata/news/post/{id}/comment/{childId}/edit
+#admin_sonata_news_post_comment_delete                    
+#ANY      /admin/sonata/news/post/{id}/comment/{childId}/delete
+#admin_sonata_news_post_comment_show                      
+#ANY      /admin/sonata/news/post/{id}/comment/{childId}/show
+#admin_sonata_news_post_comment_export                    
+#ANY      /admin/sonata/news/post/{id}/comment/export
+
+#success.sonata.admin.noticias.comment_edit
 

@@ -12,6 +12,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
+      "friendsofsymfony/comment-bundle": "2.0.*"
     },
     "autoload": {
         "psr-0": { "Success\\NewsBundle": "" }

@@ -106,3 +106,68 @@ EN ADMIN
 ->end()
 
 EXTENDER CONTROLADOR
+
+
+
+COMENTARIOS
+Agregar en el success_news 
+
+Activar modulo comentarios appKernell
+    new FOS\RestBundle\FOSRestBundle(),
+    new FOS\CommentBundle\FOSCommentBundle(),
+    new JMS\SerializerBundle\JMSSerializerBundle($this),
+
+fos_comment:
+    db_driver: orm
+    class:
+        model:
+            comment: Success\NewsBundle\Entity\Comment
+            thread: Success\NewsBundle\Entity\Thread
+
+OPCIONAL
+assetic:
+    bundles: [ "FOSCommentBundle" ]
+
+
+COMENTARIOS
+<?php
+
+namespace Application\Success\PortalBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Success\NewsBundle\Entity\BaseComment as BaseComment;
+use FOS\CommentBundle\Model\SignedCommentInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+
+/**
+ * @ORM\Table(name="success_comment")
+ * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Application\Success\PortalBundle\Entity\Repository\CommentRepository")
+ */
+class Comment extends BaseComment {
+
+  /**
+   * Author of the comment
+   *
+   * @ORM\ManyToOne(targetEntity="Application\Success\UsuarioBundle\Entity\User")
+   * @var User
+   */
+  protected $author;
+
+  public function setAuthor(UserInterface $author) {
+    $this->author = $author;
+  }
+
+  public function getAuthor() {
+    return $this->author;
+  }
+
+  public function getAuthorName() {
+    if (null === $this->getAuthor()) {
+      return 'Anonymous';
+    }
+
+    return $this->getAuthor()->getUsername();
+  }
+
+}

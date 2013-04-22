@@ -93,12 +93,12 @@ class NewsAdmin extends Admin {
     $id = $admin->getRequest()->get('id');
 
     $menu->addChild(
-            $this->trans('sidemenu.link_view_post'), array('uri' => $admin->generateUrl('edit', array('id' => $id)))
+      $this->trans('sidemenu.link_view_news'), array('uri' => $admin->generateUrl('edit', array('id' => $id)))
     );
-
+    /*$uri = $this->container->get('router')->generate('success_noticias_comment_list', array('id' => $id));
     $menu->addChild(
-            $this->trans('sidemenu.link_view_comments'), array('uri' => $admin->generateUrl('edit', array('id' => $id)))
-    );
+      $this->trans('sidemenu.link_view_comments'), array('uri' => $uri)
+    );*/
   }
 
 }
