@@ -18,6 +18,7 @@ abstract class Comment extends BaseComment {
    * Thread of this comment
    *
    * @var Thread
+   * 
    * @ORM\ManyToOne(targetEntity="Success\NewsBundle\Entity\Thread")
    */
   protected $thread;

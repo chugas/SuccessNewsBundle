@@ -47,6 +47,13 @@ abstract class News implements NewsInterface {
    * @ORM\Column(name="published", type="boolean")
    */
   protected $published;
+  
+  /**
+   * @var datetime $date_published
+   * 
+   * @ORM\Column(name="date_published", type="datetime")
+   */
+  protected $date_published;
 
   /**
    * @Gedmo\Timestampable(on="create")
@@ -156,6 +163,27 @@ abstract class News implements NewsInterface {
   public function getPublished() {
     return $this->published;
   }
+  
+  /**
+   * Set published
+   *
+   * @param datetime $date_published
+   * @return News
+   */
+  public function setDatePublished($date_published) {
+    $this->date_published = $date_published;
+
+    return $this;
+  }
+
+  /**
+   * Get published
+   *
+   * @return boolean 
+   */
+  public function getDatePublished() {
+    return $this->date_published;
+  }  
 
   /**
    * Set created
