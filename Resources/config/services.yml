@@ -15,7 +15,7 @@ services:
             - null
             - %success.news.class%
             - %success.news.admin.controller%
-            - @service_container
+            - @doctrine.orm.entity_manager
             
     success.sonata.admin.comment:
         class: %success.comments.admin.class%

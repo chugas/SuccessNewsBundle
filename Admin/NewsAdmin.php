@@ -8,16 +8,15 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 //In order to use service for prePersist and preUpdate
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 
 class NewsAdmin extends Admin {
 
-  protected $container;
+  protected $entity_manager;
 
-  public function __construct($code, $class, $baseControllerName, ContainerInterface $container) {
+  public function __construct($code, $class, $baseControllerName, $entity_manager) {
     parent::__construct($code, $class, $baseControllerName);
-    $this->container = $container;
+    $this->entity_manager = $entity_manager;
   }
 
   public function prePersist($news) {
