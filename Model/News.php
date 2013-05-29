@@ -30,7 +30,7 @@ abstract class News implements NewsInterface {
   /**
    * @var string $abstract
    *
-   * @ORM\Column(name="abstract", type="text", nullable=true)
+   * @ORM\Column(name="abstract", type="text", nullable=false)
    */
   protected $abstract;  
   
@@ -44,14 +44,14 @@ abstract class News implements NewsInterface {
   /**
    * @var boolean $published
    *
-   * @ORM\Column(name="published", type="boolean")
+   * @ORM\Column(name="published", type="boolean", options={"default" = 1})
    */
   protected $published;
   
   /**
    * @var datetime $date_published
    * 
-   * @ORM\Column(name="date_published", type="datetime")
+   * @ORM\Column(name="date_published", type="datetime", nullable=true)
    */
   protected $date_published;
 
