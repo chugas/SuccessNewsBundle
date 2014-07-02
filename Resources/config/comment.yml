@@ -1,6 +1,0 @@
-#fos_comment:
-#    db_driver: orm
-#    class:
-#        model:
-#            comment: Success\NewsBundle\Entity\Comment
-#            thread: Success\NewsBundle\Entity\Thread

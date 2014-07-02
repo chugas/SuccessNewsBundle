@@ -4,6 +4,8 @@ namespace Success\NewsBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Success\NewsBundle\SuccessNewsBundle;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
@@ -21,23 +23,39 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('success_news');
 
         $rootNode
-            //->addDefaultsIfNotSet()
+            ->addDefaultsIfNotSet()
             ->children()
-              ->scalarNode('model')
-                  ->isRequired()
-                  ->cannotBeEmpty()
-              ->end()
-              ->scalarNode('admin')
-                  ->isRequired()
-                  ->cannotBeEmpty()
-              ->end()
-              ->scalarNode('controller')
-                  ->isRequired()
-                  ->cannotBeEmpty()
-              ->end()
+                ->scalarNode('driver')->defaultValue(SuccessNewsBundle::DRIVER_DOCTRINE_ORM)->end()                
             ->end()
         ;
 
+        $this->addClassesSection($rootNode);
+
         return $treeBuilder;
+    }
+    
+    private function addClassesSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('classes')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+
+                        ->arrayNode('news')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('model')->defaultValue('Success\NewsBundle\Entity\News')->end()
+                                ->scalarNode('controller')->defaultValue('Success\NewsBundle\Controller\NewsController')->end()
+                                ->scalarNode('repository')->defaultValue('Success\NewsBundle\Doctrine\Repository\NewsRepository')->end()
+                                ->scalarNode('manager')->defaultValue('Success\NewsBundle\Doctrine\Manager\NewsManager')->end()                
+                                ->scalarNode('form')->defaultValue('Success\NewsBundle\Form\NewsType')->end()
+                                ->scalarNode('admin')->defaultValue('Success\NewsBundle\Admin\NewsAdmin')->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
     }
 }

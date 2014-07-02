@@ -149,7 +149,7 @@ class Comment extends BaseComment {
   /**
    * Author of the comment
    *
-   * @ORM\ManyToOne(targetEntity="Application\Success\UsuarioBundle\Entity\User")
+   * @ORM\ManyToOne(targetEntity="Application\Success\UserBundle\Entity\User")
    * @var User
    */
   protected $author;

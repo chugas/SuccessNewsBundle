@@ -3,26 +3,11 @@
 namespace Success\NewsBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-//In order to use service for prePersist and preUpdate
-use Knp\Menu\ItemInterface as MenuItemInterface;
 
 class NewsAdmin extends Admin {
-
-  protected $entity_manager;
-
-  public function __construct($code, $class, $baseControllerName, $entity_manager) {
-    parent::__construct($code, $class, $baseControllerName);
-    $this->entity_manager = $entity_manager;
-  }
-
-  public function prePersist($news) {
-    //$user = $this->container->get('security.context')->getToken()->getUser();
-    //$news->setAuthor($user);
-  }
 
   // setup the default sort column and order
   protected $datagridValues = array(
@@ -61,8 +46,7 @@ class NewsAdmin extends Admin {
             ->addIdentifier('id')
             ->addIdentifier('title')
             ->add('published', null, array('editable' => true))
-            //->add('author', null, array('label' => 'Author'))
-            ->add('created', null, array('label' => 'Created on'))
+            ->add('date_published', null)
     ;
   }
 
@@ -77,27 +61,8 @@ class NewsAdmin extends Admin {
             ->add('id')
             ->add('published')
             ->add('title')
-            //->add('author')
-            ->add('created')
+            ->add('date_published')
     ;
-  }
-
-  protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null) {
-    if (!$childAdmin && !in_array($action, array('edit'))) {
-      return;
-    }
-
-    $admin = $this->isChild() ? $this->getParent() : $this;
-
-    $id = $admin->getRequest()->get('id');
-
-    $menu->addChild(
-      $this->trans('sidemenu.link_view_news'), array('uri' => $admin->generateUrl('edit', array('id' => $id)))
-    );
-    /*$uri = $this->container->get('router')->generate('success_noticias_comment_list', array('id' => $id));
-    $menu->addChild(
-      $this->trans('sidemenu.link_view_comments'), array('uri' => $uri)
-    );*/
   }
 
 }
