@@ -1,0 +1,12 @@
+parameters:
+
+services:
+    success_news.admin.news:
+        class: %success.admin.news.class%
+        tags:
+          - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'Noticias', label: Listado }
+        arguments:
+            - null
+            - %success.model.news.class%
+            - null
+            - '@doctrine.orm.entity_manager'

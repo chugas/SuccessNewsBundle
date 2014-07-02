@@ -1,0 +1,27 @@
+parameters:
+
+    # Service Parameters defined in app/config.
+
+services:
+
+    success.entity_manager.news:
+        alias: doctrine.orm.entity_manager
+
+    success.repository.news.metadata:
+        factory_method: getClassMetadata
+        factory_service: success.entity_manager.news
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments:
+            - %success.model.news.class%
+            
+    success.repository.news:
+        class: %success.repository.news.class%
+        arguments:
+            - '@success.entity_manager.news'
+            - '@success.repository.news.metadata'
+
+    success.manager.news:
+        class: %success.manager.news.class%
+        arguments:
+            - '@success.entity_manager.news'
+            - %success.model.news.class%

@@ -1,0 +1,33 @@
+Success\NewsBundle\Entity\News:
+    type: mappedSuperclass
+    fields:
+        title:
+            type: string
+            length: 100
+            nullable: false
+        abstract:
+            type: text
+            nullable: false
+        content:
+            type: text
+            nullable: false
+        published:
+            type: boolean
+            nullable: false
+            options:
+                default: 1
+        date_published:
+            type: datetime
+            nullable: true         
+        created:
+            type: datetime
+            nullable: false
+            gedmo:
+              timestampable:
+                on: create            
+        updated:
+            type: datetime
+            nullable: false
+            gedmo:
+              timestampable:
+                on: update            
